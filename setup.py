@@ -86,7 +86,7 @@ if __name__=='__main__':
         package_dir = {'': 'src'},
         packages = [
             'primary_filters',
-            #'primary_filters.templatetags',
+            'primary_filters.templatetags',
             #'primary_filters.management',
             #'primary_filters.management.commands',
         ],
