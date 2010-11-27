@@ -7,7 +7,7 @@ django-primary-filters
 | **Documentation**: `django-primary-filters documentation <http://packages.python.org/django-primary-filters>`_
 | **Downloads**: `django-primary-filters releases <http://pypi.python.org/pypi/django-primary-filters>`_
 
-DESCRIPTION_DESCRIPTION_DESCRIPTION
+django-primary-filters provides some extra filters that are often needed by Django projects.
 
 Licensed under the *Apache License version 2.0*. More licensing information
 exists in the license_ section.

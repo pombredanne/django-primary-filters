@@ -2,7 +2,7 @@
 #
 #  This file is part of django-primary-filters.
 #
-#  DESCRIPTION_DESCRIPTION_DESCRIPTION
+#  django-primary-filters provides some extra filters that are often needed by Django projects.
 #
 #  Development Web Site:
 #    - http://www.codetrax.org/projects/django-primary-filters

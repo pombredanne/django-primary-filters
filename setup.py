@@ -3,7 +3,7 @@
 #
 #  This file is part of django-primary-filters.
 #
-#  DESCRIPTION_DESCRIPTION_DESCRIPTION
+#  django-primary-filters provides some extra filters that are often needed by Django projects.
 #
 #  Development Web Site:
 #    - http://www.codetrax.org/projects/django-primary-filters
@@ -66,7 +66,7 @@ if __name__=='__main__':
         maintainer = 'George Notaras',
         maintainer_email = 'gnot [at] g-loaded.eu',
         url = 'http://www.codetrax.org/projects/django-primary-filters',
-        description = 'DESCRIPTION_DESCRIPTION_DESCRIPTION',
+        description = 'django-primary-filters provides some extra filters that are often needed by Django projects.',
         long_description = read('README'),
         download_url = 'https://source.codetrax.org/hgroot/django-primary-filters',
         platforms=['any'],

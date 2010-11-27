@@ -17,7 +17,7 @@ Welcome to the *django-primary-filters*'s documentation!
 About this project
 ==================
 
-DESCRIPTION_DESCRIPTION_DESCRIPTION
+django-primary-filters provides some extra filters that are often needed by Django projects.
 
 | **Author**: `George Notaras <http://www.g-loaded.eu/>`_
 | **Development Web Site**: `django-primary-filters project <http://www.codetrax.org/projects/django-primary-filters>`_
