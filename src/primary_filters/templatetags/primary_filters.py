@@ -37,11 +37,13 @@ register = template.Library()
 @register.filter
 @stringfilter
 def dash2space(value):
+    """Converts dashes to spaces."""
     return value.replace('-', ' ')
     
 @register.filter
 @stringfilter
 def space2dash(value):
+    """Converts spaces to dashes."""
     return value.replace(' ', '-')
 
 
@@ -52,7 +54,7 @@ def strfdt(value, arg):
     
     Use with:
     
-        {% load primary_blog_tags %}
+        {% load primary_filters %}
         ...
         {{ entry.date_published|strfdt:"%A, %d %B" }}
         ...
@@ -72,7 +74,7 @@ def nofollowlinks(value):
     
     Use with:
     
-        {% load primary_blog_tags %}
+        {% load primary_filters %}
         ...
         {{ comment.comment|nofollowlinks }}
         ...
