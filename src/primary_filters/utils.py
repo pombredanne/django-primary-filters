@@ -23,3 +23,93 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
+
+import re
+from BeautifulSoup import BeautifulSoup, Comment
+
+
+
+def dash2space(value):
+    """Converts dashes to spaces."""
+    return value.replace('-', ' ')
+    
+
+def space2dash(value):
+    """Converts spaces to dashes."""
+    return value.replace(' ', '-')
+
+
+def strfdt(value, arg):
+    """Example Filter
+    
+    Use with:
+    
+        {% load primary_filters %}
+        ...
+        {{ entry.date_published|strfdt:"%A, %d %B" }}
+        ...
+        
+    """
+    return value + '--' + arg
+
+
+
+
+re_hyperlink = re.compile('<a ', re.UNICODE | re.IGNORECASE)
+
+def nofollowlinks(value):
+    """Adds the nofollow attribute to hyperlinks
+    
+    Use with:
+    
+        {% load primary_filters %}
+        ...
+        {{ comment.comment|nofollowlinks }}
+        ...
+        
+    """
+    return re_hyperlink.sub('<a rel="nofollow" ', value)
+
+
+
+def sanitize(value, allowed_tags):
+    """Strips all HTML tags except those in the 'allowed_tags' list.
+    
+    Argument should be in form 'tag2:attr1:attr2 tag2:attr1 tag3', where tags
+    are allowed HTML tags, and attrs are the allowed attributes for that tag.
+    
+    Requires: BeautifulSoup
+    
+    Taken from:
+    
+        http://www.djangosnippets.org/snippets/1655/
+    
+    Also see:
+    
+        http://www.djangosnippets.org/snippets/205/#c2355
+    
+    """
+    js_regex = re.compile(r'[\s]*(&#x.{1,7})?'.join(list('javascript')))
+    allowed_tags = [tag.split(':') for tag in allowed_tags.split()]
+    allowed_tags = dict((tag[0], tag[1:]) for tag in allowed_tags)
+    #return repr(allowed_tags)
+    soup = BeautifulSoup(value)
+    for comment in soup.findAll(text=lambda text: isinstance(text, Comment)):
+        comment.extract()
+    
+    for tag in soup.findAll(True):
+        if tag.name.lower() not in allowed_tags:
+            tag.hidden = True
+        else:
+            tag.attrs = [(attr, js_regex.sub('', val)) for attr, val in tag.attrs
+                         if attr.lower() in allowed_tags[tag.name.lower()]]
+    
+#    for tag in soup.findAll(True):
+#        if tag.name not in allowed_tags:
+#            tag.hidden = True
+#        else:
+#            tag.attrs = [(attr, js_regex.sub('', val)) for attr, val in tag.attrs
+#                         if attr in allowed_tags[tag.name]]
+    
+    return soup.renderContents().decode('utf8')
+
