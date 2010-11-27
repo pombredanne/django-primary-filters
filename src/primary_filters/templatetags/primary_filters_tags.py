@@ -66,8 +66,6 @@ def strfdt(value, arg):
 
 
 
-re_hyperlink = re.compile('<a ', re.UNICODE | re.IGNORECASE)
-
 @register.filter
 @stringfilter
 def nofollowlinks(value):
