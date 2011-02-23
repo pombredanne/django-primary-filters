@@ -24,9 +24,11 @@
 #  limitations under the License.
 #
 
+import re
 
 from django import template
 from django.template.defaultfilters import stringfilter
+from django.utils.html import strip_spaces_between_tags
 
 from primary_filters import utils
 
@@ -102,4 +104,41 @@ def sanitize(value, allowed_tags):
     
     """
     return utils.sanitize(value, allowed_tags)
+
+
+
+n1 = re.compile(r'>([\s]*)([^<\s]*)')   # strip whitespace between tag and text
+n2 = re.compile(r'([^<\s]*)([\s]*)<')   # strip whitespace between text and tag
+n3 = re.compile(r'> ([^<]+) </')        # Capture the closest tag pair and strip the whitespace around the text that might have been added by n1 & n2
+n4 = re.compile(r'\s+')                 # strip consecutive whitespace characters
+@register.filter
+@stringfilter
+def spaceless_deep(value):
+    out = n1.sub(r'> \2', value)
+    out = n2.sub(r'\1 <', out)
+    out = n3.sub(r'>\1</', out)
+    out = n4.sub(r' ', out)
+    out = strip_spaces_between_tags(out)
+    return out
+
+
+
+
+#
+# Template Tags
+#
+
+def do_spacelessdeep(parser, token):
+    nodelist = parser.parse(('endspacelessdeep',))
+    parser.delete_first_token()
+    return SpacelessDeepNode(nodelist)
+
+class SpacelessDeepNode(template.Node):
+    def __init__(self, nodelist):
+        self.nodelist = nodelist
+    def render(self, context):
+        output = self.nodelist.render(context)
+        return spaceless_deep(output)
+
+register.tag('spacelessdeep', do_spacelessdeep)
 
