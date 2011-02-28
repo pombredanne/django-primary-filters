@@ -39,6 +39,18 @@ register = template.Library()
 
 @register.filter
 @stringfilter
+def meshterms(value):
+    """Replaces commas with semicolon.
+    
+    Useful for converting a comma-delimited list of keywords to terms for
+    the Dublin Core dc.subject element.
+    
+    """
+    return utils.meshterms(value)
+
+
+@register.filter
+@stringfilter
 def dash2space(value):
     """Converts dashes to spaces."""
     return utils.dash2space(value)

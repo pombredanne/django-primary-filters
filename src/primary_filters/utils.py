@@ -28,6 +28,14 @@ import re
 from BeautifulSoup import BeautifulSoup, Comment
 
 
+def meshterms(value):
+    """Replaces commas with semicolon.
+    
+    Useful for converting a comma-delimited list of keywords to terms for
+    the Dublin Core dc.subject element.
+    
+    """
+    return value.replace(',', ';')
 
 def dash2space(value):
     """Converts dashes to spaces."""
